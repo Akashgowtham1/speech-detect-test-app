@@ -36,8 +36,8 @@ TEST_PRED = np.array([.3, .3, .4, .1, .6, .9, .1])
 
 # page settings
 st.set_page_config(page_title="SER web-app", page_icon=":speech_balloon:", layout="wide")
-# COLOR = "#1f1f2e"
-# BACKGROUND_COLOR = "#d1d1e0"
+#COLOR = "#6a329f"
+#BACKGROUND_COLOR = "#53ed11"
 
 
 # @st.cache(hash_funcs={tf_agents.utils.object_identity.ObjectIdentityDictionary: load_model})
@@ -154,12 +154,12 @@ def plot_polar(fig, predictions=TEST_PRED, categories=TEST_CAT,
 
 
 def main():
-    side_img = Image.open("images/emotion3.jpg")
+    side_img = Image.open("images/emotion360digitmg.jpg")
     with st.sidebar:
         st.image(side_img, width=300)
     st.sidebar.subheader("Menu")
     website_menu = st.sidebar.selectbox("Menu", ("Emotion Recognition", "Project description", "Our team",
-                                                 "Leave feedback", "Relax"))
+                                                 "Quotes"))
     st.set_option('deprecation.showfileUploaderEncoding', False)
 
     if website_menu == "Emotion Recognition":
@@ -237,10 +237,10 @@ def main():
             gender = st.sidebar.checkbox("gender")
 
         elif model_type == "mel-specs":
-            st.sidebar.warning("This model is temporarily disabled")
+            st.sidebar.warning("This model is disabled")
 
         else:
-            st.sidebar.warning("This model is temporarily disabled")
+            st.sidebar.warning("This model is disabled")
 
         # with st.sidebar.expander("Change colors"):
         #     st.sidebar.write("Use this options after you got the plots")
@@ -397,24 +397,34 @@ def main():
         import pandas as pd
         import plotly.express as px
         st.title("Project description")
-        st.subheader("GitHub")
-        link = '[GitHub repository of the web-application]' \
-               '(https://github.com/CyberMaryVer/speech-emotion-webapp)'
-        st.markdown(link, unsafe_allow_html=True)
+        txt = """
+            This web-application is a part of the **Speech Emotion Recognition** AI project by **360DigiTMG**.
+            Refer to Project Charter for details.
+            """
+        st.markdown(txt, unsafe_allow_html=True)
 
-        st.subheader("Theory")
-        link = '[Theory behind - Medium article]' \
-               '(https://talbaram3192.medium.com/classifying-emotions-using-audio-recordings-and-python-434e748a95eb)'
-        st.markdown(link + ":clap::clap::clap: Tal!", unsafe_allow_html=True)
+        st.subheader("Project Charter")
+        with st.expander("See Project Charter"):
+            components.iframe("https://docs.google.com/document/d/1J0tb5hwPZ_tkPp_eUprHKW69B6fanrRM/edit?usp=sharing&ouid=108236029361885257838&rtpof=true&sd=true",
+                              height=320, scrolling=True)
+       
+       #st.subheader("GitHub")
+       # link = '[GitHub repository of the web-application]' \
+       #        '(https://github.com/CyberMaryVer/speech-emotion-webapp)'
+       # st.markdown(link, unsafe_allow_html=True)
+
+        st.subheader("Definition")
+        #link = '[Theory behind - Medium article]' \
+        #       '(https://talbaram3192.medium.com/classifying-emotions-using-audio-recordings-and-python-434e748a95eb)'
+        #st.markdown(link + ":clap::clap::clap: Tal!", unsafe_allow_html=True)
         with st.expander("See Wikipedia definition"):
             components.iframe("https://en.wikipedia.org/wiki/Emotion_recognition",
                               height=320, scrolling=True)
 
         st.subheader("Dataset")
         txt = """
-            This web-application is a part of the final **Data Mining** project for **ITC Fellow Program 2020**. 
+            Datasets used in this project:
 
-            Datasets used in this project
             * Crowd-sourced Emotional Mutimodal Actors Dataset (**Crema-D**)
             * Ryerson Audio-Visual Database of Emotional Speech and Song (**Ravdess**)
             * Surrey Audio-Visual Expressed Emotion (**Savee**)
@@ -422,55 +432,60 @@ def main():
             """
         st.markdown(txt, unsafe_allow_html=True)
 
-        df = pd.read_csv("df_audio.csv")
-        fig = px.violin(df, y="source", x="emotion4", color="actors", box=True, points="all", hover_data=df.columns)
-        st.plotly_chart(fig, use_container_width=True)
+        st.subheader("References")
+        link = '[Original GitHub repository]' \
+               '(https://github.com/CyberMaryVer/speech-emotion-webapp)'
+        st.markdown(link, unsafe_allow_html=True)
+        link = '[Original Medium article]' \
+               '(https://talbaram3192.medium.com/classifying-emotions-using-audio-recordings-and-python-434e748a95eb)'
+        st.markdown(link, unsafe_allow_html=True)
 
-        st.subheader("FYI")
-        st.write("Since we are currently using a free tier instance of AWS, "
-                 "we disabled mel-spec and ensemble models.\n\n"
-                 "If you want to try them we recommend to clone our GitHub repo")
-        st.code("git clone https://github.com/CyberMaryVer/speech-emotion-webapp.git", language='bash')
+        #df = pd.read_csv("df_audio.csv")
+        #fig = px.violin(df, y="source", x="emotion4", color="actors", box=True, points="all", hover_data=df.columns)
+        #st.plotly_chart(fig, use_container_width=True)
 
-        st.write("After that, just uncomment the relevant sections in the app.py file "
-                 "to use these models:")
+        #st.subheader("FYI")
+        #st.write("Since we are currently using a free tier instance of AWS, "
+        #         "we disabled mel-spec and ensemble models.\n\n"
+        #         "If you want to try them we recommend to clone our GitHub repo")
+        #st.code("git clone https://github.com/CyberMaryVer/speech-emotion-webapp.git", language='bash')
+
+        #st.write("After that, just uncomment the relevant sections in the app.py file "
+        #         "to use these models:")
 
     elif website_menu == "Our team":
         st.subheader("Our team")
         st.balloons()
         col1, col2 = st.columns([3, 2])
         with col1:
-            st.info("maria.s.startseva@gmail.com")
-            st.info("talbaram3192@gmail.com")
-            st.info("asherholder123@gmail.com")
+            st.info("hami.asmai@gmail.com")
+            st.info("aby.yazid@gmail.com")
         with col2:
             liimg = Image.open("images/LI-Logo.png")
             st.image(liimg)
-            st.markdown(f""":speech_balloon: [Maria Startseva](https://www.linkedin.com/in/maria-startseva)""",
+            st.markdown(f""":speech_balloon: [Hami Ismail](https://www.linkedin.com/in/hami-ismail-04129056/)""",
                         unsafe_allow_html=True)
-            st.markdown(f""":speech_balloon: [Tal Baram](https://www.linkedin.com/in/tal-baram-b00b66180)""",
-                        unsafe_allow_html=True)
-            st.markdown(f""":speech_balloon: [Asher Holder](https://www.linkedin.com/in/asher-holder-526a05173)""",
+            st.markdown(f""":speech_balloon: [Aby Yazid](https://www.linkedin.com/in/tal-baram-b00b66180)""",
                         unsafe_allow_html=True)
 
-    elif website_menu == "Leave feedback":
-        st.subheader("Leave feedback")
-        user_input = st.text_area("Your feedback is greatly appreciated")
-        user_name = st.selectbox("Choose your personality", ["checker1", "checker2", "checker3", "checker4"])
+    #elif website_menu == "Leave feedback":
+    #    st.subheader("Leave feedback")
+    #    user_input = st.text_area("Your feedback is greatly appreciated")
+    #    user_name = st.selectbox("Choose your personality", ["checker1", "checker2", "checker3", "checker4"])
 
-        if st.button("Submit"):
-            st.success(f"Message\n\"\"\"{user_input}\"\"\"\nwas sent")
+    #    if st.button("Submit"):
+    #        st.success(f"Message\n\"\"\"{user_input}\"\"\"\nwas sent")
 
-            if user_input == "log123456" and user_name == "checker4":
-                with open("log0.txt", "r", encoding="utf8") as f:
-                    st.text(f.read())
-            elif user_input == "feedback123456" and user_name == "checker4":
-                with open("log.txt", "r", encoding="utf8") as f:
-                    st.text(f.read())
-            else:
-                log_file(user_name + " " + user_input)
-                thankimg = Image.open("images/sticky.png")
-                st.image(thankimg)
+    #        if user_input == "log123456" and user_name == "checker4":
+    #            with open("log0.txt", "r", encoding="utf8") as f:
+    #                st.text(f.read())
+    #        elif user_input == "feedback123456" and user_name == "checker4":
+    #            with open("log.txt", "r", encoding="utf8") as f:
+    #                st.text(f.read())
+    #        else:
+    #            log_file(user_name + " " + user_input)
+    #            thankimg = Image.open("images/sticky.png")
+    #            st.image(thankimg)
 
     else:
         import requests
